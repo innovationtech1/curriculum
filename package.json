@@ -2,7 +2,7 @@
   "name": "portafolio",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://innovationtech1.github.io/portafolio/",
+  "homepage": "https://innovationtech1.github.io/curriculum/",
   "dependencies": {
     "@babel/core": "^7.24.7",
     "@babel/preset-env": "^7.24.7",
