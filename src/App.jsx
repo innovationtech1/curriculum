@@ -1,32 +1,52 @@
 import React from 'react';
 import './App.css';
-import CV24 from './CV24.jpg';  // Importa la imagen CV24.jpg desde la carpeta public
-
+import CV24 from './CV24.jpg'; // Importa la imagen desde la misma carpeta
 
 function App() {
   const printImage = () => {
-    const printContents = document.getElementById('printable-image').innerHTML;
-    const originalContents = document.body.innerHTML;
+    // Solicitar confirmación al usuario
+    const userConfirmed = window.confirm("¿Desea imprimir la imagen?");
     
-    document.body.innerHTML = printContents;
-    window.print();
-    document.body.innerHTML = originalContents;
+    if (userConfirmed) {
+      // Si el usuario confirma, proceder con la impresión
+      const printContents = document.getElementById('printable-image').innerHTML;
+
+      // Crear un nuevo documento para imprimir
+      const printWindow = window.open('', '', 'height=600,width=800');
+      printWindow.document.open();
+      printWindow.document.write(`
+        <html>
+          <head>
+            <title>Imprimir Imagen</title>
+            <style>
+              body { margin: 0; }
+              img { max-width: 100%; height: auto; }
+            </style>
+          </head>
+          <body>
+            ${printContents}
+          </body>
+        </html>
+      `);
+      printWindow.document.close();
+      printWindow.focus();
+      printWindow.print();
+    } else {
+      console.log("Impresión cancelada.");
+    }
   };
 
   return (
     <div className="App">
-      
       <h1 className='title'>Curriculum</h1>
-
-      <br />
       
       <div className="container">
-
-        {/* Utiliza la variable CV24 para la ruta de la imagen */}
+        {/* Utiliza la imagen importada directamente */}
         <div id="printable-image">
           <img className="img" src={CV24} alt="Currículum Vitae" />
         </div>
-        <button onClick={printImage}>Imprimir Imagen</button>
+        <br />
+        <button className='button-imp' onClick={printImage}>Imprimir Imagen</button>
       </div>
     </div>
   );
